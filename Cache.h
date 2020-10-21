@@ -61,6 +61,7 @@ public:
 
 };
 
+/*Struct to enable the ordered list to compare two pointers to two connections */
 struct LessThan
 {
      bool operator() (const Connection* con1, const Connection* con2);
