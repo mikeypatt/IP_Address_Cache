@@ -63,13 +63,14 @@ pair<char,int> Cache::lookup_cache(IP_Address* add1,uint16_t port1,IP_Address* a
 void Cache::dump(){
 
     sort(ordered_list.begin(),ordered_list.end(),LessThan());
-    vector<Connection*>::iterator iter;
+     vector<Connection*>::reverse_iterator iter;
     string key;
 
-    for(iter=ordered_list.begin();iter!=ordered_list.end();++iter){
+    for(iter=ordered_list.rbegin();iter!=ordered_list.rend();++iter){
         key = (*iter)->get_key();
         delete core_map[key];
         core_map.erase(key);
+        ordered_list.pop_back();
     }
 }
 
@@ -77,7 +78,7 @@ int Cache::get_size(){return this->size;}
 
 
 bool LessThan::operator() (const Connection* con1, const Connection* con2) {
-    return (con1->get_lookups() > con2->get_lookups());
+    return (con1->get_lookups() < con2->get_lookups());
 }
 
 
